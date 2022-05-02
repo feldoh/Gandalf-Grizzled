@@ -61,7 +61,7 @@ namespace Grizzled_Gandalf.Illness
 		{
 			return pawn.IsHashIntervalTick(teleportInterval)
 			       // Don't teleport while sedated
-			       && pawn.health.capacities.CanBeAwake
+			       && (pawn?.health?.capacities?.CanBeAwake ?? true)
 			       && pawn.GetCaravan() == null
 			       // Reduce teleport chance when downed to allow potential sedation 
 			       && (!pawn.Downed || Rand.Value < 0.2);
