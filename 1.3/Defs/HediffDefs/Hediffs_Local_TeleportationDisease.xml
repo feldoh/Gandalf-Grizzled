@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<HediffDef ParentName="InfectionBase">
+	<HediffDef ParentName="InfectionBase" Class="Grizzled_Gandalf.Illness.HediffDef_RandomTeleport">
 		<description>A disease of magical origin which causes the patient to uncontrollably teleport randomly. The range and frequency of teleport events increases along with the severity.</description>
-		<hediffClass>Grizzled_Gandalf.Hediff_RandomTeleport</hediffClass>
+		<hediffClass>Grizzled_Gandalf.Illness.Hediff_RandomTeleport</hediffClass>
 		<defName>Feldoh_TeleportingSickness</defName>
 		<label>Teleporting Sickness</label>
 		<makesSickThought>false</makesSickThought>
 		<initialSeverity>0.10</initialSeverity>
+		<lethalSeverity>-1</lethalSeverity>
 		<scenarioCanAdd>true</scenarioCanAdd>
 		<tendable>true</tendable>
+		<minimumTicksBetween>2500</minimumTicksBetween>
 		<comps>
 			<li Class="HediffCompProperties_TendDuration">
 				<baseTendDurationHours>32</baseTendDurationHours>
@@ -20,6 +22,7 @@
 				<severityPerDayImmune>-0.176</severityPerDayImmune>
 				<immunityPerDayNotSick>-0.02</immunityPerDayNotSick>
 			</li>
+			<li Class="HediffCompProperties_DisappearsOnDeath"/>
 		</comps>
 		<stages>
 			<li>
@@ -39,6 +42,16 @@
 					<li>
 						<capacity>Consciousness</capacity>
 						<offset>-0.05</offset>
+					</li>
+				</capMods>
+			</li>
+			<li>
+				<minSeverity>0.45</minSeverity>
+				<label>major</label>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<offset>-0.10</offset>
 					</li>
 				</capMods>
 			</li>
