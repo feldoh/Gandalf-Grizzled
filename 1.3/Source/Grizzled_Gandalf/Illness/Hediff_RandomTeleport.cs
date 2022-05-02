@@ -74,8 +74,9 @@ namespace Grizzled_Gandalf.Illness
 			var pawnMap = pawn.Map;
 			IntVec3 approxDest = pawn.OccupiedRect().ExpandedBy(teleportRange).RandomCell.ClampInsideMap(pawnMap);
 			if (!this.FindFreeCell(approxDest, pawnMap, out var result)) return;
+			bool moteBefore = Rand.Bool;
 			pawn.teleporting = true;
-			if (pawn.Awake())
+			if (moteBefore && pawn.Awake())
 				MoteMaker.ThrowText(pawn.DrawPos, pawnMap,
 					"TextMote_TeleportingSicknessEpisode".Translate((NamedArgument)pawn.Ideo.KeyDeityName), 6.5f);
 			pawn.Position = result;
@@ -103,7 +104,7 @@ namespace Grizzled_Gandalf.Illness
 				Find.PlayLog.Add(teleportationSicknessEpisodeEvent);
 			}
 
-			if (pawn.Awake())
+			if (!moteBefore && pawn.Awake())
 				MoteMaker.ThrowText(pawn.DrawPos, pawnMap,
 					"TextMote_TeleportingSicknessEpisodeExit".Translate(), 6.5f);
 		}

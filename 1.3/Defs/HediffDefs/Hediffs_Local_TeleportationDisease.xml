@@ -56,6 +56,28 @@
 					</li>
 				</capMods>
 			</li>
+			<li>
+				<minSeverity>0.75</minSeverity>
+				<label>major</label>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<offset>-0.10</offset>
+					</li>
+				</capMods>
+				<mentalStateGivers>
+					<li>
+						<mentalState>Wander_Psychotic</mentalState>
+						<mtbDays>10</mtbDays>
+					</li>
+				</mentalStateGivers>
+				<comps>
+					<li Class="HediffCompProperties_GetsPermanent">
+						<permanentLabel>chronic teleportation sickness</permanentLabel>
+						<becomePermanentChanceFactor>0.2</becomePermanentChanceFactor>
+					</li>
+				</comps>
+			</li>
 		</stages>
 	</HediffDef>
 </Defs>
