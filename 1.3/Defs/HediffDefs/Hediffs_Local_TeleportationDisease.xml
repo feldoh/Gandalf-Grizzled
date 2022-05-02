@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 	<HediffDef ParentName="InfectionBase">
-		<description>A disease of magical origin which causes the patient to teleport randomly without any control.</description>
+		<description>A disease of magical origin which causes the patient to uncontrollably teleport randomly. The range and frequency of teleport events increases along with the severity.</description>
+		<hediffClass>Grizzled_Gandalf.Hediff_RandomTeleport</hediffClass>
 		<defName>Feldoh_TeleportingSickness</defName>
 		<label>Teleporting Sickness</label>
 		<makesSickThought>false</makesSickThought>
@@ -15,7 +16,7 @@
 			</li>
 			<li Class="HediffCompProperties_Immunizable">
 				<severityPerDayNotImmune>0.12</severityPerDayNotImmune>
-				<immunityPerDaySick>0.10</immunityPerDaySick>
+				<immunityPerDaySick>0.08</immunityPerDaySick>
 				<severityPerDayImmune>-0.176</severityPerDayImmune>
 				<immunityPerDayNotSick>-0.02</immunityPerDayNotSick>
 			</li>
@@ -29,12 +30,6 @@
 						<offset>-0.01</offset>
 					</li>
 				</capMods>
-				<hediffGivers>
-					<li Class="HediffGiver_Random">
-						<hediff>Feldoh_TeleportingSicknessEpisode</hediff>
-						<mtbDays>0.1</mtbDays>
-					</li>
-				</hediffGivers>
 				<becomeVisible>false</becomeVisible>
 			</li>
 			<li>
@@ -46,58 +41,7 @@
 						<offset>-0.05</offset>
 					</li>
 				</capMods>
-				<hediffGivers>
-					<li Class="HediffGiver_Random">
-						<hediff>Feldoh_TeleportingSicknessEpisode</hediff>
-						<mtbDays>1</mtbDays>
-					</li>
-				</hediffGivers>
 			</li>
-<!--			<li>-->
-<!--				<minSeverity>0.275</minSeverity>-->
-<!--				<label>moderate</label>-->
-<!--				<hediffGivers>-->
-<!--					<li Class="HediffGiver_Random">-->
-<!--						<hediff>TeleportingSicknessTumors</hediff>-->
-<!--						<mtbDays>15</mtbDays>-->
-<!--						<canAffectAnyLivePart>true</canAffectAnyLivePart>-->
-<!--					</li>-->
-<!--					<li Class="HediffGiver_Random">-->
-<!--						<hediff>Inflammation</hediff>-->
-<!--						<mtbDays>30</mtbDays>-->
-<!--						<canAffectAnyLivePart>true</canAffectAnyLivePart>-->
-<!--					</li>-->
-<!--				</hediffGivers>-->
-<!--			</li>-->
-<!--			<li>-->
-<!--				<minSeverity>0.95</minSeverity>-->
-<!--				<label>final</label>-->
-<!--				<hediffGivers>-->
-<!--					<li Class="HediffGiver_Random">-->
-<!--						<hediff>TeleportingSicknessTumors</hediff>-->
-<!--						<mtbDays>40</mtbDays>-->
-<!--						<canAffectAnyLivePart>true</canAffectAnyLivePart>-->
-<!--					</li>-->
-<!--					<li Class="HediffGiver_Random">-->
-<!--						<hediff>Inflammation</hediff>-->
-<!--						<mtbDays>5</mtbDays>-->
-<!--						<canAffectAnyLivePart>true</canAffectAnyLivePart>-->
-<!--					</li>-->
-<!--				</hediffGivers>-->
-<!--			</li>-->
 		</stages>
-	</HediffDef>
-	<HediffDef>
-		<description>I can feel the void calling, I have no idea where I'll end up!</description>
-		<defName>Feldoh_TeleportingSicknessEpisode</defName>
-		<hediffClass>Grizzled_Gandalf.Hediff_RandomTeleport</hediffClass>
-		<label>teleportation sickness episode</label>
-		<scenarioCanAdd>true</scenarioCanAdd>
-		<tendable>false</tendable>
-<!--		<comps>-->
-<!--			<li Class="HediffCompProperties">-->
-<!--				<compClass>Grizzled_Gandalf.Hediff_RandomTeleport</compClass>-->
-<!--			</li>-->
-<!--		</comps>-->
 	</HediffDef>
 </Defs>
