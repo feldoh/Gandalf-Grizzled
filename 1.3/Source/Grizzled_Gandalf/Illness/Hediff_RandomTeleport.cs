@@ -1,3 +1,4 @@
+using System;
 using RimWorld;
 using RimWorld.Planet;
 using UnityEngine;
@@ -60,10 +61,9 @@ namespace Grizzled_Gandalf.Illness
 		private bool ShouldTeleport()
 		{
 			return pawn.IsHashIntervalTick(teleportInterval)
-			       && pawn.GetCaravan() == null
-			       && !pawn.Dead
 			       // Don't teleport while sedated
 			       && pawn.health.capacities.CanBeAwake
+			       && pawn.GetCaravan() == null
 			       // Reduce teleport chance when downed to allow potential sedation 
 			       && (!pawn.Downed || Rand.Value < 0.2);
 		}
