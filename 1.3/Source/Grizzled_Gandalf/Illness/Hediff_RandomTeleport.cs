@@ -96,9 +96,12 @@ namespace Grizzled_Gandalf.Illness
 					resumeCurJobAfterwards: false);
 			}
 
-			BattleLogEntry_Event teleportationSicknessEpisodeEvent =
-				new BattleLogEntry_Event(pawn, RulePackDef.Named("Event_TeleportingSicknessEpisode"), null);
-			Find.PlayLog.Add(teleportationSicknessEpisodeEvent);
+			if (this.Def.shouldLog)
+			{
+				BattleLogEntry_Event teleportationSicknessEpisodeEvent =
+					new BattleLogEntry_Event(pawn, RulePackDef.Named("Event_TeleportingSicknessEpisode"), null);
+				Find.PlayLog.Add(teleportationSicknessEpisodeEvent);
+			}
 
 			if (pawn.Awake())
 				MoteMaker.ThrowText(pawn.DrawPos, pawnMap,

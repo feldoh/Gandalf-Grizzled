@@ -6,5 +6,6 @@ namespace Grizzled_Gandalf.Illness
 	{
 		private const int OneHourTicks = 2500;
 		public int minimumTicksBetween = OneHourTicks;
+		public bool shouldLog = true;
 	}
 }

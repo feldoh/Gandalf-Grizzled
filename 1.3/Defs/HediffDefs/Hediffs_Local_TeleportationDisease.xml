@@ -10,6 +10,7 @@
 		<lethalSeverity>-1</lethalSeverity>
 		<scenarioCanAdd>true</scenarioCanAdd>
 		<tendable>true</tendable>
+		<shouldLog>true</shouldLog>
 		<minimumTicksBetween>2500</minimumTicksBetween>
 		<comps>
 			<li Class="HediffCompProperties_TendDuration">
