@@ -3,5 +3,7 @@
 	<v1.3>
 		<li>Common</li>
 		<li>1.3</li>
+		<li IfModActive="Torann.ARimworldOfMagic">1.3/Mods/RimWorldOfMagic</li>
+		<li IfModActive="Torann.ARimworldOfMagic_copy">1.3/Mods/RimWorldOfMagic</li>
 	</v1.3>
 </loadFolders>

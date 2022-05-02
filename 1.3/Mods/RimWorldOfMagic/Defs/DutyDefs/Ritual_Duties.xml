@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<DutyDef>
+		<defName>PrepareMagicalInfusion</defName>
+		<hook>HighPriority</hook>
+		<thinkNode Class="ThinkNode_Priority">
+			<subNodes>
+				<!-- Fetch 50 Macicyte -->
+				<li Class="JobGiver_TakeCountToInventory">
+					<def>PackagedSurvivalMeal</def>
+					<count>2</count>
+				</li>
+
+				<li Class="JobGiver_PrepareSkylantern">
+					<locomotionUrgency>Jog</locomotionUrgency>
+					<def>PackagedSurvivalMeal</def>
+					<count>2</count>
+					<allowUnroofed>false</allowUnroofed>
+					<desiredRadius>5</desiredRadius>
+					<minDistanceToOtherReservedCell>3</minDistanceToOtherReservedCell>
+				</li>
+
+			</subNodes>
+		</thinkNode>
+	</DutyDef>
+</Defs>

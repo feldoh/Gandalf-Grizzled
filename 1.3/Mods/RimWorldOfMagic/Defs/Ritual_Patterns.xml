@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<RitualPatternDef ParentName="CelebrationConsumable">
+		<defName>Feldoh_MagicalHealing</defName>
+		<shortDescOverride>magical healing</shortDescOverride>
+		<descOverride>A ritualistic burning of a magical focus. Participants will gather around a sacrificial focus,
+			light it on fire, and channel the released power into healing the patient.
+		</descOverride>
+		<iconPathOverride>UI/Icons/Rituals/BurnCircle</iconPathOverride>
+		<ritualObligationTargetFilter>BurnTargets</ritualObligationTargetFilter>
+		<ritualBehavior>BurnCircle</ritualBehavior>
+		<ritualOutcomeEffect>DestroyConsumableBuilding_Pyre</ritualOutcomeEffect>
+	</RitualPatternDef>
+</Defs>

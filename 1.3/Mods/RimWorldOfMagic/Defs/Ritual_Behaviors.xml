@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <RitualBehaviorDef>
+    <defName>Feldoh_MagicalHealing</defName>
+    <workerClass>Grizzled_Gandalf.Illness.RitualBehaviorWorker_MagicalHealing</workerClass>
+    <durationTicks>7500</durationTicks>
+    <roles>
+      <li Class="RitualRoleMagicallyIll">
+        <label>patient</label>
+        <id>patient</id>
+        <maxCount>1</maxCount>
+        <required>True</required>
+				<allowOtherIdeos>true</allowOtherIdeos>
+        <countsAsParticipant>False</countsAsParticipant>
+      </li>
+    </roles>
+    <stages>
+			<li>
+				<defaultDuty>PrepareMagicalInfusion</defaultDuty>
+				<essential>True</essential>
+				<endTriggers>
+					<li Class="StageEndTrigger_DurationPercentage">
+						<percentage>0.6</percentage>
+					</li>
+				</endTriggers>
+				<pawnLeaveAction Class="RitualStageAction_DropThing">
+					<def>PackagedSurvivalMeal</def>
+					<count>2</count>
+				</pawnLeaveAction>
+				<interruptedAction Class="RitualStageAction_DropThing">
+					<def>PackagedSurvivalMeal</def>
+					<count>2</count>
+				</interruptedAction>
+				<tickActionMaker Class="RitualStageAction_ReleaseLanterns">
+					<woodCost>4</woodCost>
+					<preliminaryTicks>0~90</preliminaryTicks>
+				</tickActionMaker>
+			</li>
+      <li>
+        <defaultDuty>Spectate</defaultDuty>
+        <spectateDistanceOverride>1</spectateDistanceOverride>
+        <spectatorsRequired>false</spectatorsRequired>
+        <endTriggers>
+          <li Class="StageEndTrigger_RolesArrived">
+            <roleIds>
+              <li>patient</li>
+            </roleIds>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>patient</roleId>
+            <dutyDef>ArriveToCell</dutyDef>
+            <customPositions>
+              <li Class="RitualPosition_InFrontThingCenter"/>
+            </customPositions>
+          </li>
+        </roleBehaviors>
+        <highlightRolePawns>
+          <li>patient</li>
+        </highlightRolePawns>
+      </li>
+      <li>
+        <defaultDuty>Spectate</defaultDuty>
+        <spectateDistanceOverride>1</spectateDistanceOverride>
+        <spectatorsRequired>false</spectatorsRequired>
+        <endTriggers>
+          <li Class="StageEndTrigger_DurationPercentage">
+            <percentage>1</percentage>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>focus</roleId>
+            <dutyDef>SpeakOnCellNoSpeechBubbles</dutyDef>
+            <customPositions>
+              <li Class="RitualPosition_BehindThingCenter" />
+            </customPositions>
+          </li>
+          <li>
+            <roleId>patient</roleId>
+            <dutyDef>StandOnCell</dutyDef>
+          </li>
+        </roleBehaviors>
+        <highlightRolePawns>
+          <li>focus</li>
+          <li>patient</li>
+        </highlightRolePawns>
+      </li>
+    </stages>
+  </RitualBehaviorDef>
+
+  <RitualBehaviorDef>
+    <defName>TrialPrisoner</defName>
+    <workerClass>RitualBehaviorWorker_Trial</workerClass>
+    <durationTicks>5000</durationTicks>
+    <roles>
+      <li Class="RitualRoleTag">
+        <label>judge</label>
+        <tag>Leader</tag>
+        <id>leader</id>
+        <precept>IdeoRole_Leader</precept>
+        <required>True</required>
+        <maxCount>1</maxCount>
+        <countsAsParticipant>False</countsAsParticipant>
+      </li>
+      <li Class="RitualRoleForced">
+        <label>convict</label>
+        <id>convict</id>
+        <maxCount>1</maxCount>
+        <required>True</required>
+        <countsAsParticipant>False</countsAsParticipant>
+        <ignoreBleeding>true</ignoreBleeding>
+      </li>
+    </roles>
+    <stages>
+      <li Class="RitualStage_InteractWithPrisoner">
+        <defaultDuty>Spectate</defaultDuty>
+        <allowedSpectateSidesOverride>Horizontal</allowedSpectateSidesOverride>
+        <spectateDistanceOverride>1</spectateDistanceOverride>
+        <failTriggers>
+          <li Class="StageFailTrigger_TargetPawnUnreachable">
+            <takerId>leader</takerId>
+            <takeeId>convict</takeeId>
+            <desc>Convicted prisoner is not reachable.</desc>
+          </li>
+        </failTriggers>
+        <endTriggers>
+          <li Class="StageEndTrigger_RolesArrived">
+            <roleIds>
+              <li>convict</li>
+            </roleIds>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>leader</roleId>
+            <dutyDef>DeliverPawnToCell</dutyDef>
+            <customPositions>
+              <li Class="RitualPosition_InFrontThingCenter"/>
+            </customPositions>
+          </li>
+          <li>
+            <roleId>convict</roleId>
+            <dutyDef>Idle</dutyDef>
+          </li>
+        </roleBehaviors>
+      </li>
+      <li>
+        <defaultDuty>Spectate</defaultDuty>
+        <allowedSpectateSidesOverride>Horizontal</allowedSpectateSidesOverride>
+        <spectateDistanceOverride>1</spectateDistanceOverride>
+        <spectatorsRequired>true</spectatorsRequired>
+        <endTriggers>
+          <li Class="StageEndTrigger_DurationPercentage">
+            <percentage>1</percentage>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>leader</roleId>
+            <dutyDef>SpeakOnCell</dutyDef>
+            <customPositions>
+              <li Class="RitualPosition_BehindThingCenter">
+                <highlight>true</highlight>
+              </li>
+            </customPositions>
+          </li>
+          <li>
+            <roleId>convict</roleId>
+            <dutyDef>StandOnCell</dutyDef>
+          </li>
+        </roleBehaviors>
+      </li>
+    </stages>
+  </RitualBehaviorDef>
+
+  <RitualBehaviorDef>
+    <defName>TrialMentalState</defName>
+    <workerClass>RitualBehaviorWorker_Trial</workerClass>
+    <durationTicks>5000</durationTicks>
+    <roles>
+      <li Class="RitualRoleTag">
+        <label>judge</label>
+        <tag>Leader</tag>
+        <id>leader</id>
+        <precept>IdeoRole_Leader</precept>
+        <required>True</required>
+        <maxCount>1</maxCount>
+        <countsAsParticipant>False</countsAsParticipant>
+      </li>
+      <li Class="RitualRoleForced">
+        <label>convict</label>
+        <id>convict</id>
+        <maxCount>1</maxCount>
+        <countsAsParticipant>False</countsAsParticipant>
+        <addToLord>false</addToLord>
+        <ignoreBleeding>true</ignoreBleeding>
+        <allowNonAggroMentalState>true</allowNonAggroMentalState>
+      </li>
+    </roles>
+    <stages>
+      <li>
+        <defaultDuty>Spectate</defaultDuty>
+        <allowedSpectateSidesOverride>Horizontal</allowedSpectateSidesOverride>
+        <spectateDistanceOverride>1</spectateDistanceOverride>
+        <spectatorsRequired>true</spectatorsRequired>
+        <endTriggers>
+          <li Class="StageEndTrigger_DurationPercentage">
+            <percentage>1</percentage>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>leader</roleId>
+            <dutyDef>SpeakOnCell</dutyDef>
+            <customPositions>
+              <li Class="RitualPosition_BehindThingCenter" />
+            </customPositions>
+          </li>
+        </roleBehaviors>
+      </li>
+    </stages>
+  </RitualBehaviorDef>
+  
+  <RitualBehaviorDef Name="SacrificeBehaviorBase" Abstract="True" ParentName="DateRitualBehavior">
+    <preceptRequirements><li Class="PreceptRequirement_Altar"/></preceptRequirements>
+    <durationTicks>7500</durationTicks>
+    <roles Inherit="False">
+      <li Class="RitualRoleTag">
+        <label>cutter</label>
+        <id>moralist</id>
+        <tag>Moralist</tag>
+        <precept>IdeoRole_Moralist</precept>
+        <required>True</required>
+        <substitutable>true</substitutable>
+        <maxCount>1</maxCount>
+        <countsAsParticipant>False</countsAsParticipant>
+      </li>
+    </roles>
+  </RitualBehaviorDef>
+
+  <RitualBehaviorDef ParentName="SacrificeBehaviorBase">
+    <defName>SacrificePrisoner</defName>
+    <workerClass>RitualBehaviorWorker_PrisonerSacrifice</workerClass>
+    <roles>
+      <li Class="RitualRolePrisoner">
+        <label>sacrifice</label>
+        <missingDesc>a prisoner</missingDesc>
+        <id>prisoner</id>
+        <maxCount>1</maxCount>
+        <required>True</required>
+        <countsAsParticipant>False</countsAsParticipant>
+        <ignoreBleeding>true</ignoreBleeding>
+      </li>
+    </roles>
+    <stages Inherit="False">
+      <li Class="RitualStage_InteractWithPrisoner">
+        <defaultDuty>Spectate</defaultDuty>
+        <endTriggers>
+          <li Class="StageEndTrigger_PawnDeliveredOrNotValid"/>
+        </endTriggers>
+        <failTriggers>
+          <li Class="StageFailTrigger_TargetPawnUnreachable">
+            <takerId>moralist</takerId>
+            <takeeId>prisoner</takeeId>
+            <desc>Prisoner is not reachable.</desc>
+          </li>
+        </failTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>moralist</roleId>
+            <dutyDef>DeliverPawnToAltar</dutyDef>
+          </li>
+          <li>
+            <roleId>prisoner</roleId>
+            <dutyDef>Idle</dutyDef>
+          </li>
+        </roleBehaviors>
+      </li>
+      <li>
+        <defaultDuty>Spectate</defaultDuty>
+        <endTriggers>
+          <li Class="StageEndTrigger_DurationPercentage">
+            <percentage>0.4</percentage>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>moralist</roleId>
+            <dutyDef>SpeakOnCellFacingSpectators</dutyDef>
+            <speakerInteraction>Speech_Sacrifice</speakerInteraction>
+            <customPositions>
+              <li Class="RitualPosition_Lectern">
+                <maxDistanceToFocus>5</maxDistanceToFocus>
+              </li>
+              <li Class="RitualPosition_OnInteractionCell" />
+            </customPositions>
+          </li>
+          <li>
+            <roleId>prisoner</roleId>
+            <dutyDef>LayDownAwake</dutyDef>
+          </li>
+        </roleBehaviors>
+      </li>
+      <li Class="RitualStage_InteractWithPrisoner">
+        <defaultDuty>Spectate</defaultDuty>
+        <essential>True</essential>
+        <endTriggers>
+          <li Class="StageEndTrigger_PawnDead">
+            <roleId>prisoner</roleId>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>moralist</roleId>
+            <dutyDef>Sacrifice</dutyDef>
+            <customPositions>
+              <li Class="RitualPosition_OnInteractionCell" />
+            </customPositions>
+          </li>
+          <li>
+            <roleId>prisoner</roleId>
+            <dutyDef>LayDownAwake</dutyDef>
+          </li>
+        </roleBehaviors>
+        <visualEffectDef>SacrificePrisoner</visualEffectDef>
+      </li>
+      <li>
+        <defaultDuty>Spectate</defaultDuty>
+        <endTriggers>
+          <li Class="StageEndTrigger_DurationPercentage">
+            <percentage>0.6</percentage>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>moralist</roleId>
+            <dutyDef>SpeakOnCellFacingSpectators</dutyDef>
+            <speakerInteraction>Speech_Sacrifice</speakerInteraction>
+            <customPositions>
+              <li Class="RitualPosition_OnInteractionCell" />
+            </customPositions>
+          </li>
+        </roleBehaviors>
+      </li>
+    </stages>
+  </RitualBehaviorDef>
+
+  <RitualBehaviorDef ParentName="SacrificeBehaviorBase">
+    <defName>SacrificeAnimal</defName>
+    <roles>
+      <li Class="RitualRoleAnimal">
+        <label>sacrifice</label>
+        <id>animal</id>
+        <maxCount>1</maxCount>
+        <minBodySize>0.75</minBodySize>
+        <required>True</required>
+        <missingDesc>an animal with body size of at least 0.8</missingDesc>
+        <countsAsParticipant>False</countsAsParticipant>
+        <ignoreBleeding>true</ignoreBleeding>
+      </li>
+    </roles>
+    <stages Inherit="False">
+      <li Class="RitualStage_InteractWithAnimal">
+        <defaultDuty>Spectate</defaultDuty>
+        <endTriggers>
+          <li Class="StageEndTrigger_PawnDeliveredOrNotValid"/>
+        </endTriggers>
+        <failTriggers>
+          <li Class="StageFailTrigger_TargetPawnUnreachable">
+            <takerId>moralist</takerId>
+            <takeeId>animal</takeeId>
+            <desc>Animal is not reachable.</desc>
+          </li>
+        </failTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>moralist</roleId>
+            <dutyDef>DeliverPawnToAltar</dutyDef>
+          </li>
+          <li>
+            <roleId>animal</roleId>
+            <dutyDef>Idle</dutyDef>
+          </li>
+        </roleBehaviors>
+      </li>
+      <li>
+        <defaultDuty>Spectate</defaultDuty>
+        <endTriggers>
+          <li Class="StageEndTrigger_DurationPercentage">
+            <percentage>0.4</percentage>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>moralist</roleId>
+            <dutyDef>SpeakOnCellFacingSpectators</dutyDef>
+            <speakerInteraction>Speech_Sacrifice</speakerInteraction>
+            <customPositions>
+              <li Class="RitualPosition_Lectern">
+                <maxDistanceToFocus>5</maxDistanceToFocus>
+              </li>
+              <li Class="RitualPosition_OnInteractionCell" />
+            </customPositions>
+          </li>
+          <li>
+            <roleId>animal</roleId>
+            <dutyDef>LayDownAwake</dutyDef>
+          </li>
+        </roleBehaviors>
+      </li>
+      <li Class="RitualStage_InteractWithAnimal">
+        <defaultDuty>Spectate</defaultDuty>
+        <essential>True</essential>
+        <endTriggers>
+          <li Class="StageEndTrigger_PawnDead">
+            <roleId>animal</roleId>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>moralist</roleId>
+            <dutyDef>Sacrifice</dutyDef>
+            <customPositions>
+              <li Class="RitualPosition_OnInteractionCell" />
+            </customPositions>
+          </li>
+          <li>
+            <roleId>animal</roleId>
+            <dutyDef>LayDownAwake</dutyDef>
+          </li>
+        </roleBehaviors>
+        <visualEffectDef>SacrificeAnimal</visualEffectDef>
+      </li>
+      <li>
+        <defaultDuty>Spectate</defaultDuty>
+        <endTriggers>
+          <li Class="StageEndTrigger_DurationPercentage">
+            <percentage>0.6</percentage>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>moralist</roleId>
+            <dutyDef>SpeakOnCellFacingSpectators</dutyDef>
+            <speakerInteraction>Speech_Sacrifice</speakerInteraction>
+            <customPositions>
+              <li Class="RitualPosition_OnInteractionCell" />
+            </customPositions>
+          </li>
+        </roleBehaviors>
+      </li>
+    </stages>
+  </RitualBehaviorDef>
+  
+  <RitualBehaviorDef ParentName="DateRitualBehavior">
+    <defName>DancePartyTech</defName>
+    <workerClass>RitualBehaviorWorker_DancePartyTech</workerClass>
+    <durationTicks>5000</durationTicks>
+    <roles Inherit="False"/>
+    <spectatorsLabel>Participants</spectatorsLabel>
+    <spectatorGerund>participate</spectatorGerund>
+    <stages Inherit="False">
+      <li>
+        <defaultDuty>PartyDance</defaultDuty>
+        <endTriggers>
+          <li Class="StageEndTrigger_DurationPercentage">
+            <percentage>1.0</percentage>
+          </li>
+        </endTriggers>
+        <failTriggers>
+          <li Class="StageFailTrigger_TargetThingMissing">
+            <onlyIfTargetIsOfDef>LightBall</onlyIfTargetIsOfDef>
+            <desc>Lightball is missing.</desc>
+          </li>
+          <li Class="StageFailTrigger_TargetUnpowered">
+            <onlyIfTargetIsOfDef>LightBall</onlyIfTargetIsOfDef>
+            <allowanceTicks>1000</allowanceTicks>
+            <desc>Lightball is not powered.</desc>
+          </li>
+          <li Class="StageFailTrigger_NoPoweredLoudspeakers">
+            <onlyIfTargetIsOfDef>LightBall</onlyIfTargetIsOfDef>
+            <allowanceTicks>1000</allowanceTicks>
+            <desc>No powered loudspeakers.</desc>
+          </li>
+        </failTriggers>
+        <visualEffectDef>DanceParty</visualEffectDef>
+      </li>
+    </stages>
+  </RitualBehaviorDef>
+
+  <RitualBehaviorDef ParentName="DateRitualBehavior">
+    <defName>CelebrationPartyDanceDrum</defName>
+    <workerClass>RitualBehaviorWorker_PartyDanceDrums</workerClass>
+    <durationTicks>5000</durationTicks>
+    <roles Inherit="False"/>
+    <spectatorsLabel>Participants</spectatorsLabel>
+    <spectatorGerund>participate</spectatorGerund>
+    <stages Inherit="False">
+      <li>
+        <defaultDuty>PartyDance</defaultDuty>
+        <endTriggers>
+          <li Class="StageEndTrigger_DurationPercentage">
+            <percentage>1.0</percentage>
+          </li>
+        </endTriggers>
+        <failTriggers>
+          <li Class="StageFailTrigger_TargetThingMissing">
+            <onlyIfTargetIsOfDef>Campfire</onlyIfTargetIsOfDef>
+            <desc>Campfire is missing.</desc>
+          </li>
+          <li Class="StageFailTrigger_TargetNotLit">
+            <onlyIfTargetIsOfDef>Campfire</onlyIfTargetIsOfDef>
+            <desc>Campfire is not lit.</desc>
+          </li>
+          <li Class="StageFailTrigger_NoThingPresent">
+            <onlyIfTargetIsOfDef>Campfire</onlyIfTargetIsOfDef>
+            <thingDef>Drum</thingDef>
+            <desc>No drums.</desc>
+          </li>
+        </failTriggers>
+        <visualEffectDef>DrumParty</visualEffectDef>
+      </li>
+    </stages>
+    <soundDefsPerEnhancerCount>
+      <li>DanceParty_NoMusic</li>
+      <li>Drum_Music_1</li>
+      <li>Drum_Music_2</li>
+      <li>Drum_Music_3</li>
+      <li>Drum_Music_4</li>
+      <li>Drum_Music_5</li>
+      <li>Drum_Music_6</li>
+    </soundDefsPerEnhancerCount>
+    <maxEnhancerDistance>12</maxEnhancerDistance>
+  </RitualBehaviorDef>
+
+  <RitualBehaviorDef ParentName="DateRitualBehavior">
+    <defName>CelebrationSkyLanterns</defName>
+    <durationTicks>7500</durationTicks>
+    <roles Inherit="False"/>
+    <spectatorsLabel>Participants</spectatorsLabel>
+    <spectatorGerund>participate</spectatorGerund>
+    <stages Inherit="False">
+      <li>
+        <defaultDuty>PrepareSkyLanterns</defaultDuty>
+        <essential>True</essential>
+        <endTriggers>
+          <li Class="StageEndTrigger_DurationPercentage">
+            <percentage>0.6</percentage>
+          </li>
+        </endTriggers>
+        <pawnLeaveAction Class="RitualStageAction_DropThing">
+          <def>WoodLog</def>
+          <count>4</count>
+        </pawnLeaveAction>
+        <interruptedAction Class="RitualStageAction_DropThing">
+          <def>WoodLog</def>
+          <count>4</count>
+        </interruptedAction>
+        <tickActionMaker Class="RitualStageAction_ReleaseLanterns">
+          <woodCost>4</woodCost>
+          <preliminaryTicks>0~90</preliminaryTicks>
+        </tickActionMaker>
+      </li>
+      <li>
+        <defaultDuty>SpectateDirectionSociallyActive</defaultDuty>
+        <endTriggers>
+          <li Class="StageEndTrigger_DurationPercentage">
+            <percentage>0.4</percentage>
+          </li>
+        </endTriggers>
+      </li>
+    </stages>
+  </RitualBehaviorDef>
+
+  <RitualBehaviorDef ParentName="DateRitualBehavior">
+    <defName>CelebrationTree</defName>
+    <durationTicks>5000</durationTicks>
+    <roles Inherit="False"/>
+    <spectatorsLabel>Participants</spectatorsLabel>
+    <spectatorGerund>participate</spectatorGerund>
+    <stages Inherit="False">
+      <li>
+        <defaultDuty>SpectateSocial</defaultDuty>
+        <endTriggers>
+          <li Class="StageEndTrigger_DurationPercentage">
+            <percentage>0.6</percentage>
+          </li>
+        </endTriggers>
+      </li>
+      <li>
+        <defaultDuty>PartyCloseWander</defaultDuty>
+        <endTriggers>
+          <li Class="StageEndTrigger_DurationPercentage">
+            <percentage>0.4</percentage>
+          </li>
+        </endTriggers>
+      </li>
+    </stages>
+  </RitualBehaviorDef>
+
+</Defs>
