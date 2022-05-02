@@ -6,4 +6,11 @@
 		<diseaseIncident>Feldoh_TeleportingSickness</diseaseIncident>
 		<letterLabel>Disease: Teleporting sickness</letterLabel>
 	</IncidentDef>
+	
+	<IncidentDef ParentName="DiseaseIncident">
+		<defName>Feldoh_Disease_RandomHairSickness</defName>
+		<label>restless hair syndrome</label>
+		<diseaseIncident>Feldoh_RandomHairSickness</diseaseIncident>
+		<letterLabel>Disease: Restless Hair Syndrome</letterLabel>
+	</IncidentDef>
 </Defs>

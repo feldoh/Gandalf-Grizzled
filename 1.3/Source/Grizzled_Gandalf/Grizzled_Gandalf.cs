@@ -1,9 +1,6 @@
-﻿using System.Reflection;
-using System.Linq;
-using Verse;
-using RimWorld;
+﻿using HarmonyLib;
 using UnityEngine;
-using HarmonyLib;
+using Verse;
 
 namespace Grizzled_Gandalf
 {
